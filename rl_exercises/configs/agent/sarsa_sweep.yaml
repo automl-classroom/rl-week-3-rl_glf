@@ -59,14 +59,14 @@ search_space:
   seed: ${seed}
   hyperparameters:
     agent.alpha:
-      type: float
+      type: uniform_float
       lower: 0.05
       upper: 0.5
     agent.gamma:
-      type: float
+      type: uniform_float
       lower: 0.7
       upper: 0.99
     policy.epsilon:
-      type: float
+      type: uniform_float
       lower: 0.01
       upper: 0.3
