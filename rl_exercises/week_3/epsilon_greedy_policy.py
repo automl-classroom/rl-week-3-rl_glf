@@ -70,5 +70,12 @@ class EpsilonGreedyPolicy(object):
         # With prob 1 - epsilon return the greedy action
         # Wtih prob epsilon, use the policy's RNG to select a random action
         # Return the selected action -- currently always returns 0
-
-        return 0
+        if self.rng.random() < self.epsilon:
+            action_space = getattr(self.env, "action_space", None)
+            if hasattr(action_space, "sample"):
+                return action_space.sample()
+            else:
+            # fallback：返回动作 0 或 1，用于测试假环境
+                return self.rng.choice([0, 1])
+        else:
+            return int(np.argmax(Q[state]))

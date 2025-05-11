@@ -3,6 +3,8 @@ import unittest
 import numpy as np
 import pytest
 from rl_exercises.week_3 import EpsilonGreedyPolicy, SARSAAgent
+import gymnasium as gym
+
 
 
 class TestSARSA(unittest.TestCase):
@@ -11,7 +13,7 @@ class TestSARSA(unittest.TestCase):
 
         # Dummy env with 2 actions
         class DummyEnv:
-            action_space = type("A", (), {"n": 2})()
+            action_space = gym.spaces.Discrete(5)
 
         env = DummyEnv()
         policy = EpsilonGreedyPolicy(env, epsilon=0.0, seed=0)
@@ -42,7 +44,9 @@ class TestSARSA(unittest.TestCase):
         """Test ε=0 is greedy, ε=1 is (reproducibly) random."""
 
         class DummyEnv:
-            action_space = type("A", (), {"n": 5})()
+             def __init__(self):
+                self.action_space = gym.spaces.Discrete(5)
+
 
         env = DummyEnv()
 
@@ -63,7 +67,8 @@ class TestSARSA(unittest.TestCase):
         """Test that when done=True, the next-Q term is zeroed out."""
 
         class DummyEnv:
-            action_space = type("A", (), {"n": 2})()
+            def __init__(self):        
+                self.action_space = gym.spaces.Discrete(5)
 
         env = DummyEnv()
         policy = EpsilonGreedyPolicy(env, epsilon=0.0, seed=0)

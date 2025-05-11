@@ -126,11 +126,15 @@ class SARSAAgent(AbstractAgent):
         float
             The updated Q-value for the (state, action) pair.
         """
-
+        next_q = 0.0 if done else self.Q[next_state][next_action]
+        td_target = reward + self.gamma * next_q
+        td_error = td_target - self.Q[state][action]
+        self.Q[state][action] += self.alpha * td_error
+        return self.Q[state][action]
         # SARSA update rule
         # TODO: Implement the SARSA update rule here.
         # Use a value of 0. for terminal states and
         # update the new Q value in the Q table of this class.
         # Return the new Q value --currently always returns 0.0
 
-        return 0.0
+       #return 0.0
