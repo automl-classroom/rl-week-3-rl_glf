@@ -74,8 +74,7 @@ class EpsilonGreedyPolicy(object):
             action_space = getattr(self.env, "action_space", None)
             if hasattr(action_space, "sample"):
                 return action_space.sample()
-            else:
-            # fallback：返回动作 0 或 1，用于测试假环境
+            else:           
                 return self.rng.choice([0, 1])
         else:
             return int(np.argmax(Q[state]))
